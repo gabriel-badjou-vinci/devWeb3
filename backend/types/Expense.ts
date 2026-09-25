@@ -6,6 +6,8 @@ interface Expense {
   amount: number;
 }
 
+type NewExpense = Omit<Expense, 'id'>;
 export type {
     Expense,
+    NewExpense
 }

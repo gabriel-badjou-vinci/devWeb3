@@ -1,5 +1,5 @@
 import { Router } from "express";
-import type { Expense } from "../types/Expense.ts";
+import type { Expense, NewExpense } from "../types/Expense.ts";
 import { readAll, createOne, resetExpenses } from "../services/expenses.ts";
 const router = Router();
 
@@ -18,17 +18,14 @@ router.post("/expenses", (req, res) => {
   if (
     !body ||
     typeof body !== "object" ||
-    !("id" in body) ||
     !("date" in body) ||
     !("description" in body) ||
     !("payer" in body) ||
     !("amount" in body) ||
-    typeof body.id !== "string" ||
     typeof body.date !== "string" ||
     typeof body.description !== "string" ||
     typeof body.payer!== "string" ||
     typeof body.amount !== "number" ||
-    !body.id.trim() ||
     body.amount <= 0 ||
     !body.date.trim() ||
     !body.description.trim() ||
@@ -37,8 +34,7 @@ router.post("/expenses", (req, res) => {
     return res.sendStatus(400);
   }
 
-  const newExpenses: Expense = {
-      id: body.id,
+  const newExpenses: NewExpense = {
       date: body.date,
       description: body.description,
       payer: body.payer,

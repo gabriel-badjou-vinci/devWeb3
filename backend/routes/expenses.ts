@@ -3,16 +3,16 @@ import type { Expense, NewExpense } from "../types/Expense.ts";
 import { readAll, createOne, resetExpenses } from "../services/expenses.ts";
 const router = Router();
 
-router.get("/expenses", (_req, res) => {
+router.get("/expenses", async (_req, res) => {
   try {
-    const allExpenses = readAll();
+    const allExpenses = await readAll();
     return res.json(allExpenses);
   } catch (error) {
     return res.sendStatus(500);
   }
 });
 
-router.post("/expenses", (req, res) => {
+router.post("/expenses", async (req, res) => {
   const body: unknown = req.body;
 
   if (
@@ -42,7 +42,7 @@ router.post("/expenses", (req, res) => {
   };
 
   try {
-    createOne(newExpenses);
+    await createOne(newExpenses);
     return res.json(newExpenses);
   } catch (error) {
     if (!(error instanceof Error)) {
@@ -61,9 +61,9 @@ router.post("/expenses", (req, res) => {
   }
 });
 
-router.post("/expenses/reset",(_req,res) => {
+router.post("/expenses/reset", async(_req,res) => {
   try {
-    const exp = resetExpenses();
+    const exp = await resetExpenses();
     return res.json(exp);
   } catch (error) {
     if (!(error instanceof Error)) {

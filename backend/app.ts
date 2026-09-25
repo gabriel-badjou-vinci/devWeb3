@@ -7,8 +7,7 @@ const app = express();
 
 // ... 
 app.use(cors({
-  //origin: ['http://localhost:5173', /\.onrender\.com$/],
-  origin: ['https://expenso-frontend-ga7s.onrender.com'],
+  origin: ['http://localhost:5173', /\.onrender\.com$/],
 }))
 app.use(logger('dev'));
 app.use(express.json());

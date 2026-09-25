@@ -6,9 +6,9 @@ const router = Router();
 router.get("/expenses", async (_req, res) => {
   try {
     const allExpenses = await readAll();
-    return res.json(allExpenses);
+    res.json(allExpenses);
   } catch (error) {
-    return res.sendStatus(500);
+    res.sendStatus(500);
   }
 });
 

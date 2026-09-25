@@ -7,12 +7,15 @@ const jsonDbPath = path.join("./data/expenses.json");
 
 const readAll = async (): Promise<Expense[]> => {
   // const expenses = fs.readFileSync(jsonDbPath, 'utf8');
-  const expenses = await db.orm.public.Expense.all();
-  return expenses.map((p)=>({
-    ...p,
-    id:String(p.id)}
-  )
-  );
+  const rows = await db.orm.public.Expense.all();
+  const expenses = rows.map((row:any)=>({
+    id: row.id.toString(),
+    date: row.date,
+    amount: row.amount,
+    description: row.description,
+    payer: row.payer,
+  }));
+  return expenses;
 };
 
 const createOne = async (expense: NewExpense): Promise<Expense> => {

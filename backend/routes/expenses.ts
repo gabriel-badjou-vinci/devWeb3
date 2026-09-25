@@ -8,7 +8,8 @@ router.get("/expenses", async (_req, res) => {
     const allExpenses = await readAll();
     res.json(allExpenses);
   } catch (error) {
-    res.sendStatus(500);
+    console.error("[GET /expenses]", error);
+    res.status(500).json({ error: String(error), stack: (error as Error)?.stack });
   }
 });
 

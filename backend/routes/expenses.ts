@@ -6,7 +6,7 @@ const router = Router();
 router.get("/expenses", (_req, res) => {
   try {
     const allExpenses = readAll();
-    return res.send(allExpenses);
+    return res.json(allExpenses);
   } catch (error) {
     return res.sendStatus(500);
   }
@@ -43,7 +43,7 @@ router.post("/expenses", (req, res) => {
 
   try {
     createOne(newExpenses);
-    return res.send(newExpenses);
+    return res.json(newExpenses);
   } catch (error) {
     if (!(error instanceof Error)) {
       return res.sendStatus(500);
@@ -64,7 +64,7 @@ router.post("/expenses", (req, res) => {
 router.post("/expenses/reset",(_req,res) => {
   try {
     const exp = resetExpenses();
-    return res.send(exp);
+    return res.json(exp);
   } catch (error) {
     if (!(error instanceof Error)) {
       return res.sendStatus(500);
